@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1482</width>
+    <height>806</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <layout class="QGridLayout" name="gridLayout" columnstretch="1,4,1">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QListWidget" name="FolderList">
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QListWidget" name="LabelList">
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1">
+       <widget class="QTableWidget" name="FileTable">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>100</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="showGrid">
+         <bool>false</bool>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="cornerButtonEnabled">
+         <bool>false</bool>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderHighlightSections">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>标签</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>文件名</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>备选项</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei</family>
+         </font>
+        </property>
+        <property name="tabShape">
+         <enum>QTabWidget::Rounded</enum>
+        </property>
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <widget class="QWidget" name="Label">
+         <attribute name="title">
+          <string>标签</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,50">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="lineEdit">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Microsoft YaHei</family>
+                  <pointsize>9</pointsize>
+                 </font>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Microsoft YaHei UI</family>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>添加标签</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QListWidget" name="listWidget">
+              <property name="font">
+               <font>
+                <pointsize>9</pointsize>
+               </font>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="Note">
+         <attribute name="title">
+          <string>扩展</string>
+         </attribute>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1482</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>设置</string>
+    </property>
+    <addaction name="actionFolder"/>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionFolder">
+   <property name="text">
+    <string>Folder</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
