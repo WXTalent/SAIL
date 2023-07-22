@@ -21,7 +21,7 @@ class MyWindow(QMainWindow):
     
     def ui_init(self):
         self.ui = uic.loadUi('./Window.ui')
-        self.ui.setWindowIcon(QIcon("./icon/logo.ico"))
+        self.ui.setWindowIcon(QIcon("./logo.ico"))
         self.ui.setWindowTitle('SAIL')
         self.FolderList = self.ui.FolderList
         self.FileTable  = self.ui.FileTable
@@ -83,7 +83,7 @@ class MyWindow(QMainWindow):
         for folder in os.listdir(self.path):
             if os.path.isdir(self.path + '/' + folder) and folder != '#Data': # 如果是文件夹，则添加到列表中
                 item = QListWidgetItem(folder, self.FolderList)
-                item.setIcon(QIcon("./icon/folder.ico"))
+                item.setIcon(QIcon("./folder.ico"))
                 if folder not in self.label.keys(): # 在label中添加文件夹对应的key
                     self.label[folder] = {'label':[], 'color':{}}
         
