@@ -30,6 +30,8 @@ class MyWindow(QMainWindow):
         self.AddLabel = self.ui.pushButton
         self.set_folder()
         self.FolderList.clicked.connect(self.set_file) 
+        self.FolderList.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.FolderList.customContextMenuRequested.connect(self.FolderList_right_action)
         self.FileTable.clicked.connect(self.set_label)
         self.FileTable.setEditTriggers(QTableWidget.NoEditTriggers)  # 禁用编辑触发器
         self.FileTable.cellDoubleClicked.connect(self.open_file) # 双击打开文件
@@ -53,7 +55,10 @@ class MyWindow(QMainWindow):
         self.path = config[0].split('@')[1].strip()
         self.color = eval(config[1].split('@')[1].strip())
         if len(self.path) < 3:
-            self.select_folder()
+            self.path = QFileDialog.getExistingDirectory(self, '选择文件库')
+            config = 'path @ ' + self.path + '\n' + 'color @ ' + str(self.color) + '\n'
+            with open('./config.txt', 'w') as f:
+                f.write(config)
         self.read_label()
     
     def read_label(self):
@@ -324,6 +329,28 @@ class MyWindow(QMainWindow):
         self.save_label()
         self.show_label()
         self.set_file()
+           
+        
+    def FolderList_right_action(self, pos):
+        '''修改标签'''
+        item = self.FolderList.itemAt(pos)
+        if item:
+            menu = QMenu(self)
+            rename = QAction('重命名文件夹', self)
+            rename.triggered.connect(lambda:self.renameFolder(item))
+            menu.addAction(rename)
+            menu.exec_(self.FolderList.mapToGlobal(pos))
+     
+    def renameFolder(self, item):
+        text, ok = QInputDialog.getText(self, "重命名文夹", "请输入新的名称", text=item.text())
+        if ok and text:
+            folder = self.label.pop(item.text())
+            self.label[text] = folder
+            old_name = item.text()
+            new_name = text
+            os.rename(self.path+'/'+old_name, self.path+'/'+new_name)
+        self.save_label()
+        self.set_folder()
             
 if __name__ == '__main__':
     app = QApplication(sys.argv)  
