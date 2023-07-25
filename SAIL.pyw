@@ -5,8 +5,9 @@ Created on Sun Jul  2 14:04:24 2023
 @author: WXH
 """
 import sys
-import subprocess
-import os                                                                                                                                                  
+import os          
+import json                        
+import subprocess                                                                                                                
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from PyQt5.QtGui import QIcon, QColor, QFont
@@ -16,7 +17,7 @@ class MyWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('SAIL')
-        self.data_init()
+        self.path_init()
         self.ui_init()
     
     def ui_init(self):
@@ -49,7 +50,8 @@ class MyWindow(QMainWindow):
         self.ui.actionFolder.triggered.connect(self.select_folder)
         
          
-    def data_init(self):
+    def path_init(self):
+        ''''''
         with open('./config.txt') as f:
             config = f.readlines()
         self.path = config[0].split('@')[1].strip()
@@ -65,13 +67,14 @@ class MyWindow(QMainWindow):
         if '#Data' not in os.listdir(self.path):
             # 新建文件
             os.mkdir(self.path+'/'+'#Data')
-            with open(self.path+'/#Data/Label.txt', 'w'):
-                f.write('{}')
+        if "Label.json" not in os.listdir(self.path + '/' + '#Data'): 
             self.label = {}
+            with open(self.path+'/#Data/Label.json', 'w') as f:
+                json.dump(self.label, f)
         else:
-            # 从Label.txt中读取信息
-            with open(self.path+'/#Data/Label.txt') as f:
-                self.label = eval(f.readlines()[0])
+            # 从Label.json中读取信息
+            with open(self.path+'/#Data/Label.json') as f:
+                self.label = json.load(f)
             
     def select_folder(self):
         # 选择文献库
@@ -79,8 +82,8 @@ class MyWindow(QMainWindow):
         config = 'path @ ' + self.path + '\n' + 'color @ ' + str(self.color) + '\n'
         with open('./config.txt', 'w') as f:
             f.write(config)
-        self.set_folder()
         self.read_label()
+        self.set_folder()
     
     def set_folder(self):
         '''设置文件夹列表'''
@@ -91,13 +94,12 @@ class MyWindow(QMainWindow):
                 item.setIcon(QIcon("./folder.ico"))
                 if folder not in self.label.keys(): # 在label中添加文件夹对应的key
                     self.label[folder] = {'label':[], 'color':{}}
-        
         self.save_label()
         
     def save_label(self):
-        '''将label的内容保存到Label.txt中'''
-        with open(self.path+'/#Data/Label.txt', 'w') as f:
-            f.write(str(self.label))
+        '''将label的内容保存到Label.json中'''
+        with open(self.path+'/#Data/Label.json', 'w') as f:
+            json.dump(self.label, f)
             
     def set_file(self):
         '''设置文件列表，更新标签栏的内容'''
