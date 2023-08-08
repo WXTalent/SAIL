@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1482</width>
+    <width>1644</width>
     <height>806</height>
    </rect>
   </property>
@@ -14,14 +14,29 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
-     <layout class="QGridLayout" name="gridLayout" columnstretch="1,4,1">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,6,1">
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="0" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,1">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -47,7 +62,7 @@
         </item>
        </layout>
       </item>
-      <item row="0" column="1">
+      <item>
        <widget class="QTableWidget" name="FileTable">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -118,7 +133,7 @@
         </column>
        </widget>
       </item>
-      <item row="0" column="2">
+      <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="font">
          <font>
@@ -129,7 +144,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="Label">
          <attribute name="title">
@@ -212,8 +227,42 @@
         </widget>
         <widget class="QWidget" name="Note">
          <attribute name="title">
-          <string>扩展</string>
+          <string>笔记</string>
          </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout" stretch="1,50">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="text">
+               <string>保存</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTextEdit" name="textEdit"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
        </widget>
       </item>
@@ -226,7 +275,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1482</width>
+     <width>1644</width>
      <height>26</height>
     </rect>
    </property>

@@ -29,18 +29,21 @@ class MyWindow(QMainWindow):
         self.AllLabel = self.ui.LabelList
         self.FileLabel = self.ui.listWidget
         self.AddLabel = self.ui.pushButton
+        self.NoteBox  = self.ui.textEdit
+        self.SaveNote = self.ui.pushButton_2
         self.set_folder()
         self.FolderList.clicked.connect(self.set_file) 
         self.FolderList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.FolderList.customContextMenuRequested.connect(self.FolderList_right_action)
         self.FileTable.clicked.connect(self.set_label)
         self.FileTable.setEditTriggers(QTableWidget.NoEditTriggers)  # 禁用编辑触发器
-        self.FileTable.cellDoubleClicked.connect(self.open_file) # 双击打开文件
+        self.FileTable.cellDoubleClicked.connect(self.open_file)     # 双击打开文件
         header = self.FileTable.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeToContents) # 根据内容自适应宽度
+        header.setSectionResizeMode(QHeaderView.ResizeToContents)    # 根据内容自适应宽度
         self.FileTable.setContextMenuPolicy(Qt.CustomContextMenu)
         self.FileTable.customContextMenuRequested.connect(self.FileTable_right_action)
         self.AddLabel.clicked.connect(self.add_label)
+        self.SaveNote.clicked.connect(self.save_note)
         self.AllLabel.setSelectionMode(QListWidget.MultiSelection)
         self.AllLabel.clicked.connect(self.label_sort)
         self.AllLabel.setContextMenuPolicy(Qt.CustomContextMenu)
@@ -65,8 +68,11 @@ class MyWindow(QMainWindow):
     
     def read_label(self):
         if '#Data' not in os.listdir(self.path):
-            # 新建文件
+            # 新建数据文件夹
             os.mkdir(self.path+'/'+'#Data')
+        if 'Note' not in os.listdir(self.path + '/#Data'):
+            # 新建笔记文件夹
+            os.mkdir(self.path + '/#Data' + '/Note')
         if "Label.json" not in os.listdir(self.path + '/' + '#Data'): 
             self.label = {}
             with open(self.path+'/#Data/Label.json', 'w') as f:
@@ -155,26 +161,48 @@ class MyWindow(QMainWindow):
             del self.label[self.folder]['color'][color]
         
     def set_label(self):
-        '''点击文件列表，则显示对应的标签'''
+        '''点击文件列表，则显示对应的标签和笔记'''
         self.FileLabel.clear()
+        self.NoteBox.clear()
         if self.FileTable.currentIndex().column() == 1:
-            labels = self.label[self.folder][self.FileTable.currentItem().text()]
-            if len(labels) == 0:
-                self.FileLabel.addItems(['No Label'])
-            else:  
-                self.FileLabel.addItems(labels)
+            if self.FileTable.currentItem():
+                filename = self.FileTable.currentItem().text()
+                labels = self.label[self.folder][filename]
+                if len(labels) == 0:
+                    self.FileLabel.addItems(['No Label'])
+                else:  
+                    self.FileLabel.addItems(labels)
+                index = filename.rfind('.')
+                file = filename[0:index] + '.txt'
+                # 读取笔记
+                if file in os.listdir(self.path + '/#Data/Note'):
+                    with open(self.path + '/#Data/Note/'+file, encoding='UTF-8') as f:
+                        text = f.readlines()
+                    if text:
+                        string = ''.join(text)
+                        self.NoteBox.setPlainText(string)
+                    else:
+                        self.NoteBox.setPlainText('笔记为空')
+    
+    def save_note(self):
+        filename = self.FileTable.currentItem().text()
+        index = filename.rfind('.')
+        file = filename[0:index] + '.txt'
+        with open(self.path + '/#Data/Note/'+file, 'w', encoding='UTF-8') as f:
+            f.write(self.NoteBox.toPlainText())
                 
     def open_file(self):
         '''双击打开文件'''
         if self.FileTable.currentIndex().column() == 1:
             item = self.FileTable.currentItem()
-            file_path = self.path + '/' + self.folder + '/' + item.text()
-            if sys.platform.startswith('darwin'):
-                subprocess.run(['open', file_path])  # macOS
-            elif sys.platform.startswith('linux'):
-                subprocess.run(['xdg-open', file_path])  # Linux
-            elif sys.platform.startswith('win'):
-                subprocess.run(['start', '', file_path], shell=True)  # Windows
+            if item:
+                file_path = self.path + '/' + self.folder + '/' + item.text()
+                if sys.platform.startswith('darwin'):
+                    subprocess.run(['open', file_path])  # macOS
+                elif sys.platform.startswith('linux'):
+                    subprocess.run(['xdg-open', file_path])  # Linux
+                elif sys.platform.startswith('win'):
+                    subprocess.run(['start', '', file_path], shell=True)  # Windows
                 
     def add_label(self):
         '''给文件添加标签'''
